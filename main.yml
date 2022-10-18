@@ -1,0 +1,18 @@
+name: js application
+
+on:
+  branches:[master]
+  pull_request:
+    branches:[master]
+    
+    jobs:
+      build:
+            runs-on:ubantu-latest
+            
+            steps:
+                -uses:actions/checkout@v1
+                -name:build and push image
+                run: |
+                    echo "${{secrets.DOCKERPW}}" | docker login -u "dinesh9535" --password-stdin
+                    docker image build -t firstdocker:v1 .
+                    docker push firstdocker:v1
